@@ -1,15 +1,15 @@
-const Header = () => {
+function Header() {
   const headerStyle = {
-    padding: "20px 0",
-    lineHeight: "1.5em",
+    padding: '20px 0',
+    lineHeight: '1.5em',
   };
   const titleStyle = {
-    fontSize: "6rem",
-    fontWeight: "600",
-    marginBottom: "2rem",
-    lineHeight: "1em",
-    color: "#ececec",
-    textAlign: "center",
+    fontSize: '6rem',
+    fontWeight: '600',
+    marginBottom: '2rem',
+    lineHeight: '1em',
+    color: '#ececec',
+    textAlign: 'center',
   };
 
   return (
@@ -17,6 +17,6 @@ const Header = () => {
       <h1 style={titleStyle}>Toodos</h1>
     </header>
   );
-};
+}
 
 export default Header;
