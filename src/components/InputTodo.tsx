@@ -1,10 +1,10 @@
 import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { createTodo } from '../api/todo';
 import useFocus from '../hooks/useFocus';
 import { TodoType } from '../types';
 import { ALERT_MESSAGE } from '../constants/message';
+import useCreateTodo from '../hooks/todos/useCreateTodo';
 
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
@@ -12,41 +12,35 @@ type InputTodoProps = {
 
 function InputTodo({ setTodos }: InputTodoProps) {
   const [inputText, setInputText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const { ref, setFocus } = useFocus<HTMLInputElement>();
+  const { isLoading, mutate: createTodoMutate } = useCreateTodo({
+    onSuccess: (data) => {
+      setTodos((prev) => [...prev, data]);
+    },
+    onError: (error) => {
+      console.error(error);
+      alert(ALERT_MESSAGE.ERROR);
+    },
+    onSettled: () => {
+      setInputText('');
+    },
+  });
 
   useEffect(() => {
     setFocus();
   }, [setFocus]);
 
-  const handleSubmit = useCallback(
-    async (evnet: React.FormEvent<HTMLFormElement>) => {
-      try {
-        evnet.preventDefault();
-        setIsLoading(true);
+  const handleSubmit = async (evnet: React.FormEvent<HTMLFormElement>) => {
+    evnet.preventDefault();
 
-        const trimmed = inputText.trim();
-        if (!trimmed) {
-          alert(ALERT_MESSAGE.EMPTY);
-          return;
-        }
+    const trimmed = inputText.trim();
+    if (!trimmed) {
+      alert(ALERT_MESSAGE.EMPTY);
+      return;
+    }
 
-        const { data } = await createTodo(trimmed);
-
-        if (data) {
-          setTodos((prev) => [...prev, data]);
-          return;
-        }
-      } catch (error) {
-        console.error(error);
-        alert(ALERT_MESSAGE.ERROR);
-      } finally {
-        setInputText('');
-        setIsLoading(false);
-      }
-    },
-    [inputText, setTodos],
-  );
+    await createTodoMutate(trimmed);
+  };
 
   return (
     <form className="form-container" onSubmit={handleSubmit}>
