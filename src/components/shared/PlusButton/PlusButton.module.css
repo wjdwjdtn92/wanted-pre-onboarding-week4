@@ -1,0 +1,15 @@
+.input-submit {
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.btn-plus {
+  color: darkcyan;
+  font-size: 20px;
+}
+
+.btn-plus:hover {
+  opacity: 0.5;
+}
