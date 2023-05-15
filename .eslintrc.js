@@ -31,6 +31,7 @@ module.exports = {
     'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
+    'react/require-default-props': 'off',
   },
   settings: {
     'import/resolver': {
