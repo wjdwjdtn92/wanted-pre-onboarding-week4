@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 
 import { deleteTodo } from '../api/todo';
 import { TodoType } from '../types';
+import { ALERT_MESSAGE } from '../constants/message';
 
 type TodoItemProps = TodoType & {
   setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
@@ -19,7 +20,7 @@ function TodoItem({ id, title, setTodos }: TodoItemProps) {
       setTodos((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error(error);
-      alert('Something went wrong.');
+      alert(ALERT_MESSAGE.ERROR);
     } finally {
       setIsLoading(false);
     }

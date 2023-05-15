@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { createTodo } from '../api/todo';
 import useFocus from '../hooks/useFocus';
 import { TodoType } from '../types';
+import { ALERT_MESSAGE } from '../constants/message';
 
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
@@ -26,7 +27,7 @@ function InputTodo({ setTodos }: InputTodoProps) {
 
         const trimmed = inputText.trim();
         if (!trimmed) {
-          alert('Please write something');
+          alert(ALERT_MESSAGE.EMPTY);
           return;
         }
 
@@ -38,7 +39,7 @@ function InputTodo({ setTodos }: InputTodoProps) {
         }
       } catch (error) {
         console.error(error);
-        alert('Something went wrong.');
+        alert(ALERT_MESSAGE.ERROR);
       } finally {
         setInputText('');
         setIsLoading(false);
