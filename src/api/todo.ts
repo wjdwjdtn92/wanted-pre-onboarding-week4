@@ -1,3 +1,4 @@
+import { API_ERROR_MESSAGE } from '../constants/message';
 import apiRequest from './index';
 
 const RESOURCE = '/todos';
@@ -8,7 +9,7 @@ export const getTodoList = async () => {
 
     return response;
   } catch (error) {
-    throw new Error('API getTodoList error');
+    throw new Error(API_ERROR_MESSAGE.GET_TODO);
   }
 };
 
@@ -23,7 +24,7 @@ export const createTodo = async (title: string) => {
 
     return response;
   } catch (error) {
-    throw new Error('API createTodo error');
+    throw new Error(API_ERROR_MESSAGE.CREATE_TODO);
   }
 };
 
@@ -33,6 +34,6 @@ export const deleteTodo = async (id: string) => {
 
     return response;
   } catch (error) {
-    throw new Error('API deleteTodo error');
+    throw new Error(API_ERROR_MESSAGE.DELETE_TODO);
   }
 };
