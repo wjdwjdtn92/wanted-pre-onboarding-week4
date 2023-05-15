@@ -28,6 +28,9 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
   settings: {
     'import/resolver': {

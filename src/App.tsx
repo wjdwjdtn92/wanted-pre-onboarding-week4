@@ -1,9 +1,9 @@
-import "./App.css";
+import './App.css';
 
-import Main from "./pages/Main";
+import Main from './pages/Main';
 
-const App = () => {
+function App() {
   return <Main />;
-};
+}
 
 export default App;
