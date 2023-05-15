@@ -7,4 +7,4 @@ export const API_ERROR_MESSAGE = {
 export const ALERT_MESSAGE = {
   EMPTY: 'Please write something',
   ERROR: 'Something went wrong.',
-};
+} as const;

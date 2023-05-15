@@ -1,30 +1,28 @@
 import { FaSpinner, FaTrash } from 'react-icons/fa';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 
-import { deleteTodo } from '../api/todo';
 import { TodoType } from '../types';
 import { ALERT_MESSAGE } from '../constants/message';
+import useDeleteTodo from '../hooks/todos/useDeleteTodo';
 
 type TodoItemProps = TodoType & {
   setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
 };
 
 function TodoItem({ id, title, setTodos }: TodoItemProps) {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleRemoveTodo = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      await deleteTodo(id);
-
+  const { mutate: deleteTodoMutate, isLoading } = useDeleteTodo({
+    onSuccess: () => {
       setTodos((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {
+    },
+    onError: (error) => {
       console.error(error);
       alert(ALERT_MESSAGE.ERROR);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [id, setTodos]);
+    },
+  });
+
+  const handleRemoveTodo = async () => {
+    await deleteTodoMutate(id);
+  };
 
   return (
     <li className="item">
