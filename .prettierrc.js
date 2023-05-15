@@ -14,4 +14,5 @@ module.exports = {
   endOfLine: 'auto', // 개행문자 유지 (혼합일 경우, 첫 줄 개행문자로 통일)
   jsxBracketSameLine: false, // JSX의 마지막 `>`를 다음 줄로 내릴지 여부
   jsxSingleQuote: false, // JSX에 singe 쿼테이션 사용 여부
+  arrowParens: 'always',
 };
