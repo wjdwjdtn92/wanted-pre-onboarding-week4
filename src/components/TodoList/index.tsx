@@ -1,6 +1,8 @@
 import React from 'react';
-import { TodoType } from '../types';
-import TodoItem from './TodoItem';
+import { TodoType } from '../../types';
+import TodoItem from '../TodoItem';
+
+import styles from './TodoList.module.css';
 
 type TodoListProps = {
   todos: TodoType[];
@@ -15,7 +17,7 @@ function TodoList({ todos, setTodos }: TodoListProps) {
       ))}
     </ul>
   ) : (
-    <div className="empty-list">...</div>
+    <div className={styles['empty-list']}>...</div>
   );
 }
 export default TodoList;

@@ -1,10 +1,13 @@
-import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react';
 
-import useFocus from '../hooks/useFocus';
-import { TodoType } from '../types';
-import { ALERT_MESSAGE } from '../constants/message';
-import useCreateTodo from '../hooks/todos/useCreateTodo';
+import useFocus from '../../hooks/useFocus';
+import { TodoType } from '../../types';
+import { ALERT_MESSAGE } from '../../constants/message';
+import useCreateTodo from '../../hooks/todos/useCreateTodo';
+
+import styles from './InputTodo.module.css';
+import LoadingSpinner from '../shared/LoadingSpinner';
+import PlusButton from '../shared/PlusButton';
 
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
@@ -43,22 +46,16 @@ function InputTodo({ setTodos }: InputTodoProps) {
   };
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
+    <form className={styles['form-container']} onSubmit={handleSubmit}>
       <input
-        className="input-text"
+        className={`${styles['input-text']} ${styles['input-common']}`}
         placeholder="Add new todo..."
         ref={ref}
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         disabled={isLoading}
       />
-      {!isLoading ? (
-        <button className="input-submit" type="submit">
-          <FaPlusCircle className="btn-plus" />
-        </button>
-      ) : (
-        <FaSpinner className="spinner" />
-      )}
+      {!isLoading ? <PlusButton className={styles['input-common']} /> : <LoadingSpinner />}
     </form>
   );
 }

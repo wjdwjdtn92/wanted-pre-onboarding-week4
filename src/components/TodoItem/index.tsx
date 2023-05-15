@@ -1,9 +1,12 @@
-import { FaSpinner, FaTrash } from 'react-icons/fa';
 import React from 'react';
 
-import { TodoType } from '../types';
-import { ALERT_MESSAGE } from '../constants/message';
-import useDeleteTodo from '../hooks/todos/useDeleteTodo';
+import { TodoType } from '../../types';
+import { ALERT_MESSAGE } from '../../constants/message';
+import useDeleteTodo from '../../hooks/todos/useDeleteTodo';
+
+import styles from './TodoItem.module.css';
+import TrashButton from '../shared/TrashButton';
+import LoadingSpinner from '../shared/LoadingSpinner';
 
 type TodoItemProps = TodoType & {
   setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
@@ -25,16 +28,10 @@ function TodoItem({ id, title, setTodos }: TodoItemProps) {
   };
 
   return (
-    <li className="item">
+    <li className={styles.item}>
       <span>{title}</span>
-      <div className="item-option">
-        {!isLoading ? (
-          <button type="button" onClick={() => handleRemoveTodo()}>
-            <FaTrash className="btn-trash" />
-          </button>
-        ) : (
-          <FaSpinner className="spinner" />
-        )}
+      <div className={styles['item-option']}>
+        {!isLoading ? <TrashButton onClick={handleRemoveTodo} /> : <LoadingSpinner />}
       </div>
     </li>
   );
